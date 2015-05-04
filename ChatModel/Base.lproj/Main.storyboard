@@ -175,7 +175,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="S9F-0O-1qF">
-                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                                <rect key="frame" x="0.0" y="-44" width="600" height="644"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <connections>
                                     <outlet property="dataSource" destination="38F-mG-3t8" id="ME7-13-cXx"/>
@@ -187,7 +187,7 @@
                         <constraints>
                             <constraint firstAttribute="trailingMargin" secondItem="S9F-0O-1qF" secondAttribute="trailing" constant="-16" id="kNs-ba-0Zj"/>
                             <constraint firstItem="S9F-0O-1qF" firstAttribute="leading" secondItem="D7w-rj-Nyg" secondAttribute="leadingMargin" constant="-16" id="r33-dZ-Wdp"/>
-                            <constraint firstItem="S9F-0O-1qF" firstAttribute="top" secondItem="D7w-rj-Nyg" secondAttribute="topMargin" id="tpQ-56-kfr"/>
+                            <constraint firstItem="S9F-0O-1qF" firstAttribute="top" secondItem="D7w-rj-Nyg" secondAttribute="topMargin" constant="-44" id="tpQ-56-kfr"/>
                             <constraint firstItem="S9F-0O-1qF" firstAttribute="bottom" secondItem="D7w-rj-Nyg" secondAttribute="bottomMargin" id="x1P-A3-Uyy"/>
                         </constraints>
                     </view>

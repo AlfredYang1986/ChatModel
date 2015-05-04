@@ -2,20 +2,20 @@
 //  Messages.h
 //  ChatModel
 //
-//  Created by Alfred Yang on 3/05/2015.
+//  Created by Alfred Yang on 4/05/2015.
 //  Copyright (c) 2015 YY. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
 #import <CoreData/CoreData.h>
 
-@class Tatgets;
+@class Targets;
 
 @interface Messages : NSManagedObject
 
-@property (nonatomic, retain) NSDate * date;
 @property (nonatomic, retain) NSString * content;
+@property (nonatomic, retain) NSDate * date;
 @property (nonatomic, retain) NSNumber * type;
-@property (nonatomic, retain) Tatgets *toWho;
+@property (nonatomic, retain) Targets *toWho;
 
 @end

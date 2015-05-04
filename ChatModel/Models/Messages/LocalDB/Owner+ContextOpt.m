@@ -7,7 +7,7 @@
 //
 
 #import "Owner+ContextOpt.h"
-#import "Tatgets.h"
+#import "Targets.h"
 #import "Messages.h"
 
 @implementation Owner (ContextOpt)
@@ -38,10 +38,12 @@
 
 #pragma mark -- historical messages
 + (NSArray*)loadHistoricalChatTargetInContext:(NSManagedObjectContext*)context User:(Owner*)user {
-    NSArray* chats = user.history_chats.allObjects;
-    NSMutableArray* result = [[NSMutableArray alloc]initWithCapacity:chats.count];
-    for (Tatgets* iter  in chats) {
-        [result addObject:iter.target_id];
+    NSArray* targets = user.targets.allObjects;
+    NSMutableArray* result = [[NSMutableArray alloc]initWithCapacity:targets.count];
+    for (Targets* iter  in targets) {
+        if (iter.has_history) {
+            [result addObject:iter.target_id];
+        }
     }
 
     [result sortUsingComparator:^NSComparisonResult(id obj1, id obj2) {
@@ -58,14 +60,14 @@
     return [result copy];
 }
 
-+ (void)downloadHistoricalMessageInContext:(NSManagedObjectContext*)context Target:(Tatgets*)target Contects:(NSArray*)content {
++ (void)downloadHistoricalMessageInContext:(NSManagedObjectContext*)context Target:(Targets*)target Contects:(NSArray*)content {
     for (Messages* iter in content) {
         [target addMessagesObject:iter];
         iter.toWho = target;
     }
 }
 
-+ (void)addOneMessageInContext:(NSManagedObjectContext*)context Target:(Tatgets*)target type:(MessageType)message_type content:(NSString*)message_content {
++ (void)addOneMessageInContext:(NSManagedObjectContext*)context Target:(Targets*)target type:(MessageType)message_type content:(NSString*)message_content {
 
     Messages* tmp = [NSEntityDescription insertNewObjectForEntityForName:@"Messages" inManagedObjectContext:context];
     tmp.type = [NSNumber numberWithInteger:message_type];
@@ -79,18 +81,18 @@
     [context save:nil];
 }
 
-+ (NSArray*)queryMessagesInContext:(NSManagedObjectContext*)context Target:(Tatgets*)target {
++ (NSArray*)queryMessagesInContext:(NSManagedObjectContext*)context Target:(Targets*)target {
     return target.messages.allObjects;
 }
 
 
-+ (void)downloadHistoricalMessageInContext:(NSManagedObjectContext*)context User:(Owner*)user Target:(Tatgets*)target Contects:(NSArray*)content {
++ (void)downloadHistoricalMessageInContext:(NSManagedObjectContext*)context User:(Owner*)user Target:(Targets*)target Contects:(NSArray*)content {
     
 }
 
-+ (Tatgets*)queryTargetInContext:(NSManagedObjectContext*)context User:(NSString*)user_id TargetID:(NSString*)target_id {
++ (Targets*)queryTargetInContext:(NSManagedObjectContext*)context User:(NSString*)user_id TargetID:(NSString*)target_id {
     
-    NSFetchRequest* request = [NSFetchRequest fetchRequestWithEntityName:@"Tatgets"];
+    NSFetchRequest* request = [NSFetchRequest fetchRequestWithEntityName:@"Targets"];
     request.predicate = [NSPredicate predicateWithFormat:@"Owner.user_id=%@", user_id];
     request.predicate = [NSPredicate predicateWithFormat:@"target_id=%@", target_id];
 //    NSSortDescriptor* des = [NSSortDescriptor sortDescriptorWithKey:@"user_id" ascending:YES];
@@ -103,21 +105,51 @@
         NSLog(@"error with primary key");
         return nil;
     } else if (matches.count == 1) {
-        Tatgets* tmp = [matches lastObject];
+        Targets* tmp = [matches lastObject];
         return tmp;
     } else {
-        Owner* o = [Owner loadOwnerInContext:context User:user_id];
-        Tatgets* tmp = [NSEntityDescription insertNewObjectForEntityForName:@"Tatgets" inManagedObjectContext:context];
-        tmp.target_id = target_id;
-        tmp.owner = o;
-        [o addHistory_chatsObject:tmp];
+//        Owner* o = [Owner loadOwnerInContext:context User:user_id];
+//        Targets* tmp = [NSEntityDescription insertNewObjectForEntityForName:@"Tatgets" inManagedObjectContext:context];
+//        tmp.target_id = target_id;
+//        tmp.is_friends = YES;
+//        tmp.has_history = NO;
+//        tmp.owner = o;
+//        [o addTargetsObject:tmp];
         
-        return tmp;
+//        return tmp;
+        NSLog(@"no such target in friend and history");
+        return nil;
     }
 }
 
 #pragma mark -- friends
-+ (void)loadFriendsInContext:(NSManagedObjectContext*)context User:(Owner*)user Friends:(NSArray*)array {
++ (NSArray*)loadFriendsInContext:(NSManagedObjectContext*)context User:(Owner*)user {
+   
+    NSMutableArray* ma = [[NSMutableArray alloc] init];
+    for (Targets* iter in user.targets.allObjects) {
+        if (iter.is_friends) {
+            [ma addObject:iter.target_id];
+        }
+    }
+    return [ma copy];
+}
 
++ (void)saveFriendsInContext:(NSManagedObjectContext*)context User:(Owner*)user Friends:(NSArray*)array {
+
+    for (Targets* iter in user.targets.allObjects) {
+        if (iter.is_friends) {
+            [user removeTargetsObject:iter];
+            [context deleteObject:iter];
+        }
+    }
+    
+    for (NSString* iter in array) {
+        Targets* tmp = [NSEntityDescription insertNewObjectForEntityForName:@"Targets" inManagedObjectContext:context];
+        tmp.target_id = iter;
+        tmp.is_friends = [NSNumber numberWithInt:1];
+        tmp.has_history = [NSNumber numberWithInt:0];
+        tmp.owner = user;
+        [user addTargetsObject:tmp];
+    }
 }
 @end

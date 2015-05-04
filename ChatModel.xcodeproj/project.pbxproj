@@ -19,12 +19,11 @@
 		EE27EF151AF6528900A672E0 /* loginModel.m in Sources */ = {isa = PBXBuildFile; fileRef = EE27EF141AF6528900A672E0 /* loginModel.m */; };
 		EE27EF191AF6555E00A672E0 /* MessageData.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = EE27EF171AF6555E00A672E0 /* MessageData.xcdatamodeld */; };
 		EE27EF231AF6593E00A672E0 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EE27EF201AF658F700A672E0 /* CoreData.framework */; };
-		EE27EF381AF668FF00A672E0 /* Messages.m in Sources */ = {isa = PBXBuildFile; fileRef = EE27EF371AF668FF00A672E0 /* Messages.m */; };
-		EE27EF3B1AF6690000A672E0 /* Friend.m in Sources */ = {isa = PBXBuildFile; fileRef = EE27EF3A1AF6690000A672E0 /* Friend.m */; };
-		EE27EF3E1AF6690000A672E0 /* Tatgets.m in Sources */ = {isa = PBXBuildFile; fileRef = EE27EF3D1AF6690000A672E0 /* Tatgets.m */; };
-		EE27EF411AF6690000A672E0 /* Owner.m in Sources */ = {isa = PBXBuildFile; fileRef = EE27EF401AF6690000A672E0 /* Owner.m */; };
 		EE27EF471AF66AD000A672E0 /* Owner+ContextOpt.m in Sources */ = {isa = PBXBuildFile; fileRef = EE27EF461AF66AD000A672E0 /* Owner+ContextOpt.m */; };
 		EE27EF4A1AF681FD00A672E0 /* HistoryChatsController.m in Sources */ = {isa = PBXBuildFile; fileRef = EE27EF491AF681FD00A672E0 /* HistoryChatsController.m */; };
+		EE2803151AF7CE3800B1373E /* Owner.m in Sources */ = {isa = PBXBuildFile; fileRef = EE2803141AF7CE3800B1373E /* Owner.m */; };
+		EE2803181AF7CE3800B1373E /* Targets.m in Sources */ = {isa = PBXBuildFile; fileRef = EE2803171AF7CE3800B1373E /* Targets.m */; };
+		EE28031B1AF7CE3800B1373E /* Messages.m in Sources */ = {isa = PBXBuildFile; fileRef = EE28031A1AF7CE3800B1373E /* Messages.m */; };
 		EE2D54F01AF72D3400F277D8 /* FriendsController.m in Sources */ = {isa = PBXBuildFile; fileRef = EE2D54EF1AF72D3400F277D8 /* FriendsController.m */; };
 /* End PBXBuildFile section */
 
@@ -61,18 +60,16 @@
 		EE27EF141AF6528900A672E0 /* loginModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = loginModel.m; sourceTree = "<group>"; };
 		EE27EF181AF6555E00A672E0 /* MessageData.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = MessageData.xcdatamodel; sourceTree = "<group>"; };
 		EE27EF201AF658F700A672E0 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
-		EE27EF361AF668FF00A672E0 /* Messages.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Messages.h; sourceTree = "<group>"; };
-		EE27EF371AF668FF00A672E0 /* Messages.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Messages.m; sourceTree = "<group>"; };
-		EE27EF391AF6690000A672E0 /* Friend.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Friend.h; sourceTree = "<group>"; };
-		EE27EF3A1AF6690000A672E0 /* Friend.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Friend.m; sourceTree = "<group>"; };
-		EE27EF3C1AF6690000A672E0 /* Tatgets.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Tatgets.h; sourceTree = "<group>"; };
-		EE27EF3D1AF6690000A672E0 /* Tatgets.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Tatgets.m; sourceTree = "<group>"; };
-		EE27EF3F1AF6690000A672E0 /* Owner.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Owner.h; sourceTree = "<group>"; };
-		EE27EF401AF6690000A672E0 /* Owner.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Owner.m; sourceTree = "<group>"; };
 		EE27EF451AF66AD000A672E0 /* Owner+ContextOpt.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Owner+ContextOpt.h"; sourceTree = "<group>"; };
 		EE27EF461AF66AD000A672E0 /* Owner+ContextOpt.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Owner+ContextOpt.m"; sourceTree = "<group>"; };
 		EE27EF481AF681FD00A672E0 /* HistoryChatsController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HistoryChatsController.h; sourceTree = "<group>"; };
 		EE27EF491AF681FD00A672E0 /* HistoryChatsController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HistoryChatsController.m; sourceTree = "<group>"; };
+		EE2803131AF7CE3800B1373E /* Owner.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Owner.h; sourceTree = "<group>"; };
+		EE2803141AF7CE3800B1373E /* Owner.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Owner.m; sourceTree = "<group>"; };
+		EE2803161AF7CE3800B1373E /* Targets.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Targets.h; sourceTree = "<group>"; };
+		EE2803171AF7CE3800B1373E /* Targets.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Targets.m; sourceTree = "<group>"; };
+		EE2803191AF7CE3800B1373E /* Messages.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Messages.h; sourceTree = "<group>"; };
+		EE28031A1AF7CE3800B1373E /* Messages.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Messages.m; sourceTree = "<group>"; };
 		EE2D54EE1AF72D3400F277D8 /* FriendsController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FriendsController.h; sourceTree = "<group>"; };
 		EE2D54EF1AF72D3400F277D8 /* FriendsController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FriendsController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -212,14 +209,12 @@
 			isa = PBXGroup;
 			children = (
 				EE27EF171AF6555E00A672E0 /* MessageData.xcdatamodeld */,
-				EE27EF3F1AF6690000A672E0 /* Owner.h */,
-				EE27EF401AF6690000A672E0 /* Owner.m */,
-				EE27EF3C1AF6690000A672E0 /* Tatgets.h */,
-				EE27EF3D1AF6690000A672E0 /* Tatgets.m */,
-				EE27EF391AF6690000A672E0 /* Friend.h */,
-				EE27EF3A1AF6690000A672E0 /* Friend.m */,
-				EE27EF361AF668FF00A672E0 /* Messages.h */,
-				EE27EF371AF668FF00A672E0 /* Messages.m */,
+				EE2803191AF7CE3800B1373E /* Messages.h */,
+				EE28031A1AF7CE3800B1373E /* Messages.m */,
+				EE2803161AF7CE3800B1373E /* Targets.h */,
+				EE2803171AF7CE3800B1373E /* Targets.m */,
+				EE2803131AF7CE3800B1373E /* Owner.h */,
+				EE2803141AF7CE3800B1373E /* Owner.m */,
 				EE27EF451AF66AD000A672E0 /* Owner+ContextOpt.h */,
 				EE27EF461AF66AD000A672E0 /* Owner+ContextOpt.m */,
 			);
@@ -338,14 +333,13 @@
 				EE27EF0A1AF64A1B00A672E0 /* RemoteInstance.m in Sources */,
 				EE27EEEA1AF5F22100A672E0 /* ViewController.m in Sources */,
 				EE27EF121AF651C900A672E0 /* MessageModel.m in Sources */,
-				EE27EF411AF6690000A672E0 /* Owner.m in Sources */,
-				EE27EF3B1AF6690000A672E0 /* Friend.m in Sources */,
+				EE28031B1AF7CE3800B1373E /* Messages.m in Sources */,
+				EE2803151AF7CE3800B1373E /* Owner.m in Sources */,
 				EE2D54F01AF72D3400F277D8 /* FriendsController.m in Sources */,
 				EE27EF471AF66AD000A672E0 /* Owner+ContextOpt.m in Sources */,
+				EE2803181AF7CE3800B1373E /* Targets.m in Sources */,
 				EE27EF151AF6528900A672E0 /* loginModel.m in Sources */,
 				EE27EF191AF6555E00A672E0 /* MessageData.xcdatamodeld in Sources */,
-				EE27EF3E1AF6690000A672E0 /* Tatgets.m in Sources */,
-				EE27EF381AF668FF00A672E0 /* Messages.m in Sources */,
 				EE27EEE71AF5F22100A672E0 /* AppDelegate.m in Sources */,
 				EE27EEE41AF5F22100A672E0 /* main.m in Sources */,
 				EE27EF4A1AF681FD00A672E0 /* HistoryChatsController.m in Sources */,

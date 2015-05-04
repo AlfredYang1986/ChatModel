@@ -22,13 +22,14 @@ typedef NS_ENUM(NSInteger, MessageType) {
 
 #pragma mark -- historical messages
 + (NSArray*)loadHistoricalChatTargetInContext:(NSManagedObjectContext*)context User:(Owner*)user;
-+ (void)downloadHistoricalMessageInContext:(NSManagedObjectContext*)context Target:(Tatgets*)target Contects:(NSArray*)content;
-+ (void)addOneMessageInContext:(NSManagedObjectContext*)context Target:(Tatgets*)target type:(MessageType)message_type content:(NSString*)message_content;
++ (void)downloadHistoricalMessageInContext:(NSManagedObjectContext*)context Target:(Targets*)target Contects:(NSArray*)content;
++ (void)addOneMessageInContext:(NSManagedObjectContext*)context Target:(Targets*)target type:(MessageType)message_type content:(NSString*)message_content;
 + (void)saveAllHistoricalMessagesInContext:(NSManagedObjectContext*)context;
-+ (Tatgets*)queryTargetInContext:(NSManagedObjectContext*)context User:(Owner*)user TargetID:(NSString*)target_id;
++ (Targets*)queryTargetInContext:(NSManagedObjectContext*)context User:(Owner*)user TargetID:(NSString*)target_id;
 
-+ (NSArray*)queryMessagesInContext:(NSManagedObjectContext*)context Target:(Tatgets*)target;
++ (NSArray*)queryMessagesInContext:(NSManagedObjectContext*)context Target:(Targets*)target;
 
 #pragma mark -- friends
-+ (void)loadFriendsInContext:(NSManagedObjectContext*)context User:(Owner*)user Friends:(NSArray*)array;
++ (void)saveFriendsInContext:(NSManagedObjectContext*)context User:(Owner*)user Friends:(NSArray*)array;
++ (NSArray*)loadFriendsInContext:(NSManagedObjectContext*)context User:(Owner*)user;
 @end

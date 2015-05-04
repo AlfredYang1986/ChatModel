@@ -23,6 +23,7 @@ typedef NS_ENUM(NSInteger, ModelAttchmentType) {
 #define QUERYMESSAGES                   [HOST_DOMAIN stringByAppendingString:@"queryMessages"]
 #define REGISTERDEVICE                  [HOST_DOMAIN stringByAppendingString:@"registerDevice"]
 #define ADDFRIEND                       [HOST_DOMAIN stringByAppendingString:@"addOneFriend"]
+#define QUERYFRIENDS                    [HOST_DOMAIN stringByAppendingString:@"queryAllFriend"]
 
 
 #pragma mark -- database

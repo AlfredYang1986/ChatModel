@@ -18,6 +18,7 @@
 
 @implementation FriendsController {
     BOOL _isLoading;
+    NSArray* _friendArray;
 }
 
 @synthesize queryView = _queryView;
@@ -31,6 +32,8 @@
     _mm = app.mm;
     
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithTitle:@"add friend" style:UIBarButtonItemStyleDone target:self action:@selector(didSelectAddFriendBtn:)];
+    
+    _friendArray = [_mm loadAllFriends];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -98,11 +101,11 @@
 }
 
 - (NSString*)enumFriendNameAtIndex:(NSInteger)index {
-    return @"alfred";
+    return [_friendArray objectAtIndex:index];
 }
 
 - (NSInteger)enumFriendCounts{
-    return 2;
+    return _friendArray.count;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {

@@ -1,8 +1,8 @@
 //
-//  Tatgets.h
+//  Targets.h
 //  ChatModel
 //
-//  Created by Alfred Yang on 3/05/2015.
+//  Created by Alfred Yang on 4/05/2015.
 //  Copyright (c) 2015 YY. All rights reserved.
 //
 
@@ -11,15 +11,17 @@
 
 @class Messages, Owner;
 
-@interface Tatgets : NSManagedObject
+@interface Targets : NSManagedObject
 
 @property (nonatomic, retain) NSString * target_id;
 @property (nonatomic, retain) NSNumber * target_type;
+@property (nonatomic, retain) NSNumber * is_friends;
+@property (nonatomic, retain) NSNumber * has_history;
 @property (nonatomic, retain) NSSet *messages;
 @property (nonatomic, retain) Owner *owner;
 @end
 
-@interface Tatgets (CoreDataGeneratedAccessors)
+@interface Targets (CoreDataGeneratedAccessors)
 
 - (void)addMessagesObject:(Messages *)value;
 - (void)removeMessagesObject:(Messages *)value;

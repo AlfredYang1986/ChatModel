@@ -18,5 +18,6 @@
 - (NSInteger)historicalChatTargetsCount;
 - (NSString*)targetsWithAlphOrdingAtIndex:(NSInteger)index;
 - (BOOL)addFriendWithFriendID:(NSString*)friend_id;
-- (void)reloadFriends
+
+- (NSArray*)loadAllFriends;
 @end

@@ -83,10 +83,34 @@
     NSDictionary* result = [RemoteInstance remoteSeverRequestData:jsonData toUrl:[NSURL URLWithString:ADDFRIEND]];
     
     if ([[result objectForKey:@"status"] isEqualToString:@"ok"]) {
+        NSArray* arr = [[result objectForKey:@"result"] objectForKey:@"friends"];
+        Owner* o = [Owner loadOwnerInContext:_doc.managedObjectContext User:_user_id];
+        [Owner saveFriendsInContext:_doc.managedObjectContext User:o Friends:arr];
         return YES;
     } else {
         return NO;
     }
+}
+
+- (NSArray*)loadAllFriends {
+//    Owner* o = [Owner loadOwnerInContext:_doc.managedObjectContext User:_user_id];
+//    return [Owner loadFriendsInContext:_doc.managedObjectContext User:o];
     
+    NSMutableDictionary* dic = [[NSMutableDictionary alloc]init];
+    [dic setValue:_user_id forKey:@"user_id"];
+    
+    NSError * error = nil;
+    NSData* jsonData =[NSJSONSerialization dataWithJSONObject:[dic copy] options:NSJSONWritingPrettyPrinted error:&error];
+    
+    NSDictionary* result = [RemoteInstance remoteSeverRequestData:jsonData toUrl:[NSURL URLWithString:QUERYFRIENDS]];
+    
+    if ([[result objectForKey:@"status"] isEqualToString:@"ok"]) {
+        NSArray* arr = [[result objectForKey:@"result"] objectForKey:@"friends"];
+        Owner* o = [Owner loadOwnerInContext:_doc.managedObjectContext User:_user_id];
+        [Owner saveFriendsInContext:_doc.managedObjectContext User:o Friends:arr];
+        return [Owner loadFriendsInContext:_doc.managedObjectContext User:o];
+    } else {
+        return nil;
+    }
 }
 @end
