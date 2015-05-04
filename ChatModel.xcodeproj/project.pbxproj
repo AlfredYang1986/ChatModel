@@ -24,6 +24,7 @@
 		EE2803151AF7CE3800B1373E /* Owner.m in Sources */ = {isa = PBXBuildFile; fileRef = EE2803141AF7CE3800B1373E /* Owner.m */; };
 		EE2803181AF7CE3800B1373E /* Targets.m in Sources */ = {isa = PBXBuildFile; fileRef = EE2803171AF7CE3800B1373E /* Targets.m */; };
 		EE28031B1AF7CE3800B1373E /* Messages.m in Sources */ = {isa = PBXBuildFile; fileRef = EE28031A1AF7CE3800B1373E /* Messages.m */; };
+		EE28031E1AF7E29900B1373E /* ChatViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EE28031D1AF7E29900B1373E /* ChatViewController.m */; };
 		EE2D54F01AF72D3400F277D8 /* FriendsController.m in Sources */ = {isa = PBXBuildFile; fileRef = EE2D54EF1AF72D3400F277D8 /* FriendsController.m */; };
 /* End PBXBuildFile section */
 
@@ -70,6 +71,8 @@
 		EE2803171AF7CE3800B1373E /* Targets.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Targets.m; sourceTree = "<group>"; };
 		EE2803191AF7CE3800B1373E /* Messages.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Messages.h; sourceTree = "<group>"; };
 		EE28031A1AF7CE3800B1373E /* Messages.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Messages.m; sourceTree = "<group>"; };
+		EE28031C1AF7E29900B1373E /* ChatViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChatViewController.h; sourceTree = "<group>"; };
+		EE28031D1AF7E29900B1373E /* ChatViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChatViewController.m; sourceTree = "<group>"; };
 		EE2D54EE1AF72D3400F277D8 /* FriendsController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FriendsController.h; sourceTree = "<group>"; };
 		EE2D54EF1AF72D3400F277D8 /* FriendsController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FriendsController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -191,6 +194,8 @@
 				EE27EF491AF681FD00A672E0 /* HistoryChatsController.m */,
 				EE2D54EE1AF72D3400F277D8 /* FriendsController.h */,
 				EE2D54EF1AF72D3400F277D8 /* FriendsController.m */,
+				EE28031C1AF7E29900B1373E /* ChatViewController.h */,
+				EE28031D1AF7E29900B1373E /* ChatViewController.m */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -342,6 +347,7 @@
 				EE27EF191AF6555E00A672E0 /* MessageData.xcdatamodeld in Sources */,
 				EE27EEE71AF5F22100A672E0 /* AppDelegate.m in Sources */,
 				EE27EEE41AF5F22100A672E0 /* main.m in Sources */,
+				EE28031E1AF7E29900B1373E /* ChatViewController.m in Sources */,
 				EE27EF4A1AF681FD00A672E0 /* HistoryChatsController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

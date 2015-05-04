@@ -1,36 +1,35 @@
 //
-//  HistoryChatsController.m
+//  ChatViewController.m
 //  ChatModel
 //
-//  Created by Alfred Yang on 4/05/2015.
+//  Created by Alfred Yang on 5/05/2015.
 //  Copyright (c) 2015 YY. All rights reserved.
 //
 
-#import "HistoryChatsController.h"
-#import "MessageModel.h"
-#import "AppDelegate.h"
 #import "ChatViewController.h"
+#import "MessageModel.h"
+#import "Targets.h"
 
-@interface HistoryChatsController ()
+@interface ChatViewController () <UITableViewDataSource, UITableViewDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *queryView;
-@property (nonatomic, weak) MessageModel* mm;
+@property (strong, nonatomic) Targets* target;
 @end
 
-@implementation HistoryChatsController {
+@implementation ChatViewController {
     BOOL _isLoading;
 }
 
 @synthesize queryView = _queryView;
 @synthesize mm = _mm;
+@synthesize target_id = _target_id;
+@synthesize target = _target;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     _isLoading = NO;
-    AppDelegate* app = [[UIApplication sharedApplication]delegate];
-    _mm = app.mm;
-
-    self.navigationController.tabBarController.hidesBottomBarWhenPushed = YES;
+    
+    _target = [_mm targetWithName:_target_id];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -39,14 +38,14 @@
 }
 
 /*
- #pragma mark - Navigation
- 
- // In a storyboard-based application, you will often want to do a little preparation before navigation
- - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
- // Get the new view controller using [segue destinationViewController].
- // Pass the selected object to the new view controller.
- }
- */
+#pragma mark - Navigation
+
+// In a storyboard-based application, you will often want to do a little preparation before navigation
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    // Get the new view controller using [segue destinationViewController].
+    // Pass the selected object to the new view controller.
+}
+*/
 
 #pragma mark -- table view delegate
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -85,28 +84,28 @@
         cell.textLabel.text = @"athena";
         return cell;
     } else {
-
+        
         UITableViewCell* cell = [tableView dequeueReusableCellWithIdentifier:@"default"];
         
         if (cell == nil) {
             cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"default"];
         }
         
-        cell.textLabel.text = [self enumTargetNameInIndex:indexPath.row - 1];
+        cell.textLabel.text = [self enumFriendNameAtIndex:indexPath.row - 1];
         return cell;
     }
 }
 
-- (NSString*)enumTargetNameInIndex:(NSInteger)index {
-    return [_mm targetsWithAlphOrdingAtIndex:index];
+- (NSString*)enumFriendNameAtIndex:(NSInteger)index {
+    return @"alfred";
 }
 
-- (NSInteger)enumResentChatsTargetCount {
-    return [_mm historicalChatTargetsCount];
+- (NSInteger)enumChatsCounts{
+    return 2;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 2 + [self enumResentChatsTargetCount];
+    return 2 + [self enumChatsCounts];
 }
 
 #pragma mark -- scroll refresh
@@ -132,12 +131,12 @@
         }
         
         if (- scrollView.contentOffset.y / _queryView.frame.size.height > 0.2) { // 调用下拉刷新方法
-
+            
             NSLog(@"refresh chats");
             CGRect rc = _queryView.frame;
             rc.origin.y = rc.origin.y + 44;
             [_queryView setFrame:rc];
-          
+            
             _isLoading = YES;
             sleep(2);
             rc.origin.y = rc.origin.y - 44;
@@ -146,4 +145,5 @@
     }
     _isLoading = NO;
 }
+
 @end

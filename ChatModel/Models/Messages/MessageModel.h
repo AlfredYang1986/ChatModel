@@ -9,11 +9,15 @@
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 
+@class Targets;
+
 @interface MessageModel : NSObject
 @property (nonatomic, strong) NSString* user_id;
 
 - (id)init;
 - (void)reloadDataFromLocalDBAsUser:(NSString*)user_id;
+
+- (Targets*)targetWithName:(NSString*)target_id;
 
 - (NSInteger)historicalChatTargetsCount;
 - (NSString*)targetsWithAlphOrdingAtIndex:(NSInteger)index;

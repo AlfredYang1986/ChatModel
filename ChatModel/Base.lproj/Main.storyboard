@@ -105,17 +105,17 @@
                     <navigationItem key="navigationItem" title="Chat List" id="Top-Lh-ifv"/>
                     <connections>
                         <outlet property="queryView" destination="nDb-Fw-IUe" id="3G0-Sb-IVI"/>
-                        <segue destination="TaK-iF-cfM" kind="push" id="v6Q-Xg-HyM"/>
+                        <segue destination="TaK-iF-cfM" kind="push" identifier="ChatDetail" id="v6Q-Xg-HyM"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="441-ie-WJw" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2754" y="445"/>
         </scene>
-        <!--Chat Name-->
+        <!--Chat With-->
         <scene sceneID="pip-tH-c5l">
             <objects>
-                <viewController id="TaK-iF-cfM" sceneMemberID="viewController">
+                <viewController id="TaK-iF-cfM" customClass="ChatViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="5iv-Y2-Rbe"/>
                         <viewControllerLayoutGuide type="bottom" id="KWm-QD-OYg"/>
@@ -137,7 +137,7 @@
                             <constraint firstItem="DNJ-Qb-foM" firstAttribute="top" secondItem="AxR-Pk-8SM" secondAttribute="topMargin" id="v0z-AR-OfQ"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="Chat Name" id="HVb-cz-3gh"/>
+                    <navigationItem key="navigationItem" title="Chat With" id="HVb-cz-3gh"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="krR-Ik-ebA" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -241,6 +241,6 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="vj9-kg-wSs"/>
+        <segue reference="v6Q-Xg-HyM"/>
     </inferredMetricsTieBreakers>
 </document>

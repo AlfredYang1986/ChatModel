@@ -10,6 +10,7 @@
 #import "MessageModel.h"
 #import "AppDelegate.h"
 #import "loginModel.h"
+#import "ChatViewController.h"
 
 @interface FriendsController () <UITableViewDelegate, UITableViewDataSource, UIAlertViewDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *queryView;
@@ -34,6 +35,7 @@
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithTitle:@"add friend" style:UIBarButtonItemStyleDone target:self action:@selector(didSelectAddFriendBtn:)];
     
     _friendArray = [_mm loadAllFriends];
+    self.navigationController.tabBarController.hidesBottomBarWhenPushed = YES;
 }
 
 - (void)didReceiveMemoryWarning {
@@ -54,6 +56,13 @@
 #pragma mark -- table view delegate
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     NSLog(@"selet row");
+    [self performSegueWithIdentifier:@"ChatDetail" sender:indexPath];
+}
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    if ([segue.identifier isEqualToString:@"ChatDetail"]) {
+        ((ChatViewController*)segue.destinationViewController).mm = _mm;
+    }
 }
 
 - (BOOL)tableView:(UITableView *)tableView shouldHighlightRowAtIndexPath:(NSIndexPath *)indexPath {

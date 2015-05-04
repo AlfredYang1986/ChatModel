@@ -113,4 +113,9 @@
         return nil;
     }
 }
+
+- (Targets*)targetWithName:(NSString*)target_id {
+    Owner* o = [Owner loadOwnerInContext:_doc.managedObjectContext User:_user_id];
+    return [Owner queryTargetInContext:_doc.managedObjectContext User:o TargetID:target_id];
+}
 @end
