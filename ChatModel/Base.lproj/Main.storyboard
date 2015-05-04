@@ -165,7 +165,7 @@
         <!--Friends-->
         <scene sceneID="pca-lm-qPM">
             <objects>
-                <viewController id="38F-mG-3t8" sceneMemberID="viewController">
+                <viewController id="38F-mG-3t8" customClass="FriendsController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="nQy-0r-U9l"/>
                         <viewControllerLayoutGuide type="bottom" id="Uni-q4-F7P"/>
@@ -177,6 +177,10 @@
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="S9F-0O-1qF">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <connections>
+                                    <outlet property="dataSource" destination="38F-mG-3t8" id="ME7-13-cXx"/>
+                                    <outlet property="delegate" destination="38F-mG-3t8" id="dmc-kC-Ij3"/>
+                                </connections>
                             </tableView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -189,6 +193,7 @@
                     </view>
                     <navigationItem key="navigationItem" title="Friends" id="fOk-Az-Pdk"/>
                     <connections>
+                        <outlet property="queryView" destination="S9F-0O-1qF" id="ImS-0V-WTd"/>
                         <segue destination="TaK-iF-cfM" kind="push" id="vj9-kg-wSs"/>
                     </connections>
                 </viewController>
@@ -236,6 +241,6 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="v6Q-Xg-HyM"/>
+        <segue reference="vj9-kg-wSs"/>
     </inferredMetricsTieBreakers>
 </document>

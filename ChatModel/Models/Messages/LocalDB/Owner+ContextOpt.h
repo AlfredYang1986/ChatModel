@@ -30,4 +30,5 @@ typedef NS_ENUM(NSInteger, MessageType) {
 + (NSArray*)queryMessagesInContext:(NSManagedObjectContext*)context Target:(Tatgets*)target;
 
 #pragma mark -- friends
++ (void)loadFriendsInContext:(NSManagedObjectContext*)context User:(Owner*)user Friends:(NSArray*)array;
 @end

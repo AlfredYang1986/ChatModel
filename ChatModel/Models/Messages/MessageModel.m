@@ -11,6 +11,7 @@
 #import <CoreData/CoreData.h>
 #import "Owner.h"
 #import "Owner+ContextOpt.h"
+#import "RemoteInstance.h"
 
 @interface MessageModel ()
 @property (strong, nonatomic) UIManagedDocument* doc;
@@ -22,6 +23,7 @@
 
 - (void)reloadDataFromLocalDBAsUser:(NSString*)user_id {
     NSLog(@"load local chat history for user %@", user_id);
+    _user_id = user_id;
 }
 
 - (void)enumDataFromLocalDB:(UIManagedDocument*)document {
@@ -59,4 +61,32 @@
     return self;
 }
 
+- (NSInteger)historicalChatTargetsCount {
+    Owner* o = [Owner loadOwnerInContext:_doc.managedObjectContext User:_user_id];
+    return [Owner loadHistoricalChatTargetInContext:_doc.managedObjectContext User:o].count;
+}
+
+- (NSString*)targetsWithAlphOrdingAtIndex:(NSInteger)index {
+    Owner* o = [Owner loadOwnerInContext:_doc.managedObjectContext User:_user_id];
+    return [[Owner loadHistoricalChatTargetInContext:_doc.managedObjectContext User:o] objectAtIndex:index];
+}
+
+- (BOOL)addFriendWithFriendID:(NSString*)friend_id {
+    
+    NSMutableDictionary* dic = [[NSMutableDictionary alloc]init];
+    [dic setValue:_user_id forKey:@"user_id"];
+    [dic setValue:friend_id forKey:@"friend_id"];
+    
+    NSError * error = nil;
+    NSData* jsonData =[NSJSONSerialization dataWithJSONObject:[dic copy] options:NSJSONWritingPrettyPrinted error:&error];
+    
+    NSDictionary* result = [RemoteInstance remoteSeverRequestData:jsonData toUrl:[NSURL URLWithString:ADDFRIEND]];
+    
+    if ([[result objectForKey:@"status"] isEqualToString:@"ok"]) {
+        return YES;
+    } else {
+        return NO;
+    }
+    
+}
 @end

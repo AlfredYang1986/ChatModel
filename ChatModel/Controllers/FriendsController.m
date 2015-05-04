@@ -1,21 +1,22 @@
 //
-//  HistoryChatsController.m
+//  FriendsController.m
 //  ChatModel
 //
 //  Created by Alfred Yang on 4/05/2015.
 //  Copyright (c) 2015 YY. All rights reserved.
 //
 
-#import "HistoryChatsController.h"
+#import "FriendsController.h"
 #import "MessageModel.h"
 #import "AppDelegate.h"
+#import "loginModel.h"
 
-@interface HistoryChatsController ()
+@interface FriendsController () <UITableViewDelegate, UITableViewDataSource, UIAlertViewDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *queryView;
-@property (nonatomic, weak) MessageModel* mm;
+@property (weak, nonatomic) MessageModel* mm;
 @end
 
-@implementation HistoryChatsController {
+@implementation FriendsController {
     BOOL _isLoading;
 }
 
@@ -28,6 +29,8 @@
     _isLoading = NO;
     AppDelegate* app = [[UIApplication sharedApplication]delegate];
     _mm = app.mm;
+    
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithTitle:@"add friend" style:UIBarButtonItemStyleDone target:self action:@selector(didSelectAddFriendBtn:)];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -82,28 +85,28 @@
         cell.textLabel.text = @"athena";
         return cell;
     } else {
-
+        
         UITableViewCell* cell = [tableView dequeueReusableCellWithIdentifier:@"default"];
         
         if (cell == nil) {
             cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"default"];
         }
         
-        cell.textLabel.text = [self enumTargetNameInIndex:indexPath.row - 1];
+        cell.textLabel.text = [self enumFriendNameAtIndex:indexPath.row - 1];
         return cell;
     }
 }
 
-- (NSString*)enumTargetNameInIndex:(NSInteger)index {
-    return [_mm targetsWithAlphOrdingAtIndex:index];
+- (NSString*)enumFriendNameAtIndex:(NSInteger)index {
+    return @"alfred";
 }
 
-- (NSInteger)enumResentChatsTargetCount {
-    return [_mm historicalChatTargetsCount];
+- (NSInteger)enumFriendCounts{
+    return 2;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 2 + [self enumResentChatsTargetCount];
+    return 2 + [self enumFriendCounts];
 }
 
 #pragma mark -- scroll refresh
@@ -129,12 +132,12 @@
         }
         
         if (- scrollView.contentOffset.y / _queryView.frame.size.height > 0.2) { // 调用下拉刷新方法
-
+            
             NSLog(@"refresh chats");
             CGRect rc = _queryView.frame;
             rc.origin.y = rc.origin.y + 44;
             [_queryView setFrame:rc];
-          
+            
             _isLoading = YES;
             sleep(2);
             rc.origin.y = rc.origin.y - 44;
@@ -142,5 +145,23 @@
         }
     }
     _isLoading = NO;
+}
+
+- (void)didSelectAddFriendBtn:(id)sender {
+    NSLog(@"adding friend");
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"friend name" message:@"" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"add",nil];
+    alert.alertViewStyle = UIAlertViewStylePlainTextInput;
+    [alert show];
+}
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
+    if (buttonIndex != 0) {
+        UITextField* txt = [alertView textFieldAtIndex:0];
+        NSString* friend_id = txt.text;
+        NSLog(@"friend name is %@", friend_id);
+        if (friend_id.length != 0) {
+            [_mm addFriendWithFriendID:friend_id];
+        }
+    }
 }
 @end

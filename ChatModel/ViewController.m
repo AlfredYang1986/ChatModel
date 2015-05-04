@@ -46,6 +46,7 @@
         NSLog(@"no valid inputing your name");
         UIAlertView* alert = [[UIAlertView alloc]initWithTitle:@"Error" message:@"please input your name" delegate:nil cancelButtonTitle:@"Cancel" otherButtonTitles: nil];
         [alert show];
+        return;
     }
     
     if ([_lm loginWithName:name]) {
@@ -63,7 +64,6 @@
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     if ([segue.identifier isEqualToString:@"chat"]) {
         NSLog(@"login success");
-        
     }
 }
 

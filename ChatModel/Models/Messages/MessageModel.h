@@ -14,4 +14,9 @@
 
 - (id)init;
 - (void)reloadDataFromLocalDBAsUser:(NSString*)user_id;
+
+- (NSInteger)historicalChatTargetsCount;
+- (NSString*)targetsWithAlphOrdingAtIndex:(NSInteger)index;
+- (BOOL)addFriendWithFriendID:(NSString*)friend_id;
+- (void)reloadFriends
 @end

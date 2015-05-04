@@ -43,6 +43,18 @@
     for (Tatgets* iter  in chats) {
         [result addObject:iter.target_id];
     }
+
+    [result sortUsingComparator:^NSComparisonResult(id obj1, id obj2) {
+        NSString* left  = (NSString*)obj1;
+        NSString* right = (NSString*)obj2;
+        if (strcmp(left.cString, right.cString) < 0) {
+            return NSOrderedAscending;
+        } else if (strcmp(left.cString, right.cString) > 0) {
+            return NSOrderedDescending;
+        } else {
+            return NSOrderedSame;
+        }
+    }];
     return [result copy];
 }
 
@@ -102,5 +114,10 @@
         
         return tmp;
     }
+}
+
+#pragma mark -- friends
++ (void)loadFriendsInContext:(NSManagedObjectContext*)context User:(Owner*)user Friends:(NSArray*)array {
+
 }
 @end

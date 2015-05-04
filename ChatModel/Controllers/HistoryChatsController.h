@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface HistoryChatsController : UIViewController <UITableViewDelegate, UITableViewDataSource>
+@class MessageModel;
 
+@interface HistoryChatsController : UIViewController <UITableViewDelegate, UITableViewDataSource>
 @end

@@ -25,6 +25,7 @@
 		EE27EF411AF6690000A672E0 /* Owner.m in Sources */ = {isa = PBXBuildFile; fileRef = EE27EF401AF6690000A672E0 /* Owner.m */; };
 		EE27EF471AF66AD000A672E0 /* Owner+ContextOpt.m in Sources */ = {isa = PBXBuildFile; fileRef = EE27EF461AF66AD000A672E0 /* Owner+ContextOpt.m */; };
 		EE27EF4A1AF681FD00A672E0 /* HistoryChatsController.m in Sources */ = {isa = PBXBuildFile; fileRef = EE27EF491AF681FD00A672E0 /* HistoryChatsController.m */; };
+		EE2D54F01AF72D3400F277D8 /* FriendsController.m in Sources */ = {isa = PBXBuildFile; fileRef = EE2D54EF1AF72D3400F277D8 /* FriendsController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -72,6 +73,8 @@
 		EE27EF461AF66AD000A672E0 /* Owner+ContextOpt.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Owner+ContextOpt.m"; sourceTree = "<group>"; };
 		EE27EF481AF681FD00A672E0 /* HistoryChatsController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HistoryChatsController.h; sourceTree = "<group>"; };
 		EE27EF491AF681FD00A672E0 /* HistoryChatsController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HistoryChatsController.m; sourceTree = "<group>"; };
+		EE2D54EE1AF72D3400F277D8 /* FriendsController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FriendsController.h; sourceTree = "<group>"; };
+		EE2D54EF1AF72D3400F277D8 /* FriendsController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FriendsController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -189,6 +192,8 @@
 				EE27EEE91AF5F22100A672E0 /* ViewController.m */,
 				EE27EF481AF681FD00A672E0 /* HistoryChatsController.h */,
 				EE27EF491AF681FD00A672E0 /* HistoryChatsController.m */,
+				EE2D54EE1AF72D3400F277D8 /* FriendsController.h */,
+				EE2D54EF1AF72D3400F277D8 /* FriendsController.m */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -335,6 +340,7 @@
 				EE27EF121AF651C900A672E0 /* MessageModel.m in Sources */,
 				EE27EF411AF6690000A672E0 /* Owner.m in Sources */,
 				EE27EF3B1AF6690000A672E0 /* Friend.m in Sources */,
+				EE2D54F01AF72D3400F277D8 /* FriendsController.m in Sources */,
 				EE27EF471AF66AD000A672E0 /* Owner+ContextOpt.m in Sources */,
 				EE27EF151AF6528900A672E0 /* loginModel.m in Sources */,
 				EE27EF191AF6555E00A672E0 /* MessageData.xcdatamodeld in Sources */,
