@@ -63,9 +63,10 @@
     return self;
 }
 
-- (NSInteger)historicalChatTargetsCount {
+//- (NSInteger)historicalChatTargetsCount {
+- (NSArray*)historicalChatTargets {
     Owner* o = [Owner loadOwnerInContext:_doc.managedObjectContext User:_user_id];
-    return [Owner loadHistoricalChatTargetInContext:_doc.managedObjectContext User:o].count;
+    return [Owner loadHistoricalChatTargetInContext:_doc.managedObjectContext User:o];
 }
 
 - (NSString*)targetsWithAlphOrdingAtIndex:(NSInteger)index {
@@ -173,5 +174,10 @@
 //    Owner* o = [Owner loadOwnerInContext:_doc.managedObjectContext User:_user_id];
     Targets* t = [Owner queryTargetInContext:_doc.managedObjectContext UserID:_user_id TargetID:target_id];
     return [Owner queryMessagesInContext:_doc.managedObjectContext Target:t];
+}
+
+- (void)addFriendToHistoryChat:(NSString*)target_id {
+    Owner* o = [Owner loadOwnerInContext:_doc.managedObjectContext User:_user_id];
+    [Owner addFriendToHistoricalChat:_doc.managedObjectContext User:o TargetID:target_id];
 }
 @end

@@ -28,4 +28,6 @@
 #pragma mark -- friends
 + (void)saveFriendsInContext:(NSManagedObjectContext*)context User:(Owner*)user Friends:(NSArray*)array;
 + (NSArray*)loadFriendsInContext:(NSManagedObjectContext*)context User:(Owner*)user;
++ (void)addFriendToHistoricalChat:(NSManagedObjectContext*)context User:(Owner*)user TargetID:(NSString*)target_id;
++ (void)deleteFriendToHistoricalChat:(NSManagedObjectContext*)context User:(Owner*)user TargetID:(NSString*)target_id;
 @end

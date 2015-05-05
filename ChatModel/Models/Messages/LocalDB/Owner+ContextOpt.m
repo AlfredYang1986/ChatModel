@@ -85,7 +85,15 @@
 }
 
 + (NSArray*)queryMessagesInContext:(NSManagedObjectContext*)context Target:(Targets*)target {
-    return target.messages.allObjects;
+    return [target.messages.allObjects sortedArrayUsingComparator:^NSComparisonResult(id obj1, id obj2) {
+        long long left_date  = [((Messages*)obj1).date timeIntervalSince1970];
+        long long right_date = [((Messages*)obj2).date timeIntervalSince1970];
+        if (left_date > right_date) {
+            return NSOrderedDescending;
+        } else {
+            return NSOrderedAscending;
+        }
+    }];
 }
 
 
@@ -126,9 +134,9 @@
 
 + (void)saveMessagesInContext:(NSManagedObjectContext*)context Target:(Targets*)target Messages:(NSArray*)arr {
     for (Messages* iter in target.messages.allObjects) {
+        [target removeMessagesObject:iter];
         [context deleteObject:iter];
     }
-    [target removeMessages:target.messages];
     
     for (NSDictionary* iter in arr) {
         Messages* tmp = [NSEntityDescription insertNewObjectForEntityForName:@"Messages" inManagedObjectContext:context];
@@ -141,6 +149,10 @@
         } else {
             tmp.status = [NSNumber numberWithInt:MessagesStatusSended];
         }
+
+        NSNumber* mills = [iter objectForKey:@"date"];
+        NSTimeInterval seconds = mills.longLongValue / 1000.0;
+        tmp.date = [NSDate dateWithTimeIntervalSince1970:seconds];
     }
 }
 
@@ -173,5 +185,16 @@
         tmp.owner = user;
         [user addTargetsObject:tmp];
     }
+}
+
++ (void)addFriendToHistoricalChat:(NSManagedObjectContext*)context User:(Owner*)user TargetID:(NSString*)target_id {
+   
+    Targets* t = [[user.targets.allObjects filteredArrayUsingPredicate: [NSPredicate predicateWithFormat:@"target_id = %@", target_id]] lastObject];
+    
+    t.has_history = [NSNumber numberWithInt:1];
+}
+
++ (void)deleteFriendToHistoricalChat:(NSManagedObjectContext*)context User:(Owner*)user TargetID:(NSString*)target_id {
+    
 }
 @end

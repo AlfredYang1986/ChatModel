@@ -107,7 +107,10 @@
         } else {
             cell.textLabel.textAlignment = NSTextAlignmentLeft;
         }
-        cell.textLabel.text = [self enumMessageContentAtIndex:indexPath.row - 1];
+        cell.textLabel.text = [NSString stringWithFormat:@"%@ (%@)",
+                               [self enumMessageContentAtIndex:indexPath.row - 1],
+                               [self enumMessageDateAtIndex:indexPath.row - 1]];
+        
         return cell;
     }
 }
@@ -116,12 +119,28 @@
     return ((Messages*)[_chat_list objectAtIndex:index]).content;
 }
 
+- (NSString*)enumMessageDateAtIndex:(NSInteger)index {
+    NSDate* date = ((Messages*)[_chat_list objectAtIndex:index]).date;
+    
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    dateFormatter.timeStyle = NSDateFormatterNoStyle;
+    dateFormatter.dateStyle = NSDateFormatterMediumStyle;
+    
+//    NSLocale *usLocale = [[NSLocale alloc] initWithLocaleIdentifier:@"en_US"];
+//    [dateFormatter setLocale:usLocale];
+    
+    [dateFormatter setDateFormat:@"MMM dd HH:mm"];
+    
+    return [dateFormatter stringFromDate:date];
+}
+
 - (MessageType)enumMessageTypeAtIndex:(NSInteger)index {
     return MessageTypeTextMessage;
 }
 
 - (MessageStatus)enumMessageStatusAtIndex:(NSInteger)index {
-    return ((MessageStatus)((Messages*)[_chat_list objectAtIndex:index]).status);
+    Messages* m = ((Messages*)[_chat_list objectAtIndex:index]);
+    return (MessageStatus)m.status.intValue;
 }
 
 - (NSInteger)enumChatsCounts{
@@ -161,8 +180,9 @@
             rc.origin.y = rc.origin.y + 44;
             [_queryView setFrame:rc];
             
+            _chat_list = [_mm loadMessagesWithTargetID:_target_id];
+            [self reloadChatMessage];
             _isLoading = YES;
-            sleep(2);
             rc.origin.y = rc.origin.y - 44;
             [_queryView setFrame:rc];
         }
@@ -180,6 +200,9 @@
     [_mm addMessageToTarget:_target_id Content:txt];
     _chat_list = [_mm localMessagesWithTargetID:_target_id];
     [_queryView reloadData];
+    
+    // add this to historical chat
+    [_mm addFriendToHistoryChat:_target_id];
 }
 
 @end

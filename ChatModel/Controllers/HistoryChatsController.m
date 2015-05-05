@@ -18,6 +18,7 @@
 
 @implementation HistoryChatsController {
     BOOL _isLoading;
+    NSArray* _target_list;
 }
 
 @synthesize queryView = _queryView;
@@ -30,6 +31,18 @@
     AppDelegate* app = [[UIApplication sharedApplication]delegate];
     _mm = app.mm;
 
+    [self reloadTargetList];
+}
+
+- (void)reloadTargetList {
+    _target_list = [_mm historicalChatTargets];
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+
+    [self reloadTargetList];
+    [_queryView reloadData];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -97,11 +110,12 @@
 }
 
 - (NSString*)enumTargetNameInIndex:(NSInteger)index {
-    return [_mm targetsWithAlphOrdingAtIndex:index];
+//    return [_mm targetsWithAlphOrdingAtIndex:index];
+    return [_target_list objectAtIndex:index];
 }
 
 - (NSInteger)enumResentChatsTargetCount {
-    return [_mm historicalChatTargetsCount];
+    return _target_list.count;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {

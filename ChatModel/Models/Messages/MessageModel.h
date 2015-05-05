@@ -19,7 +19,8 @@
 
 - (Targets*)targetWithName:(NSString*)target_id;
 
-- (NSInteger)historicalChatTargetsCount;
+//- (NSInteger)historicalChatTargetsCount;
+- (NSArray*)historicalChatTargets;
 - (NSString*)targetsWithAlphOrdingAtIndex:(NSInteger)index;
 - (BOOL)addFriendWithFriendID:(NSString*)friend_id;
 
@@ -30,4 +31,6 @@
 - (NSArray*)localMessagesWithTargetID:(NSString*)target_id;
 
 - (void)addMessageToTarget:(NSString*)target_id Content:(NSString*)content;
+
+- (void)addFriendToHistoryChat:(NSString*)target_id;
 @end
