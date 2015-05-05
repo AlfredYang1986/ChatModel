@@ -32,6 +32,7 @@
         return tmp;
     } else {
         Owner* tmp = [NSEntityDescription insertNewObjectForEntityForName:@"Owner" inManagedObjectContext:context];
+        tmp.user_id = user_id;
         return tmp;
     }
 }
@@ -41,7 +42,7 @@
     NSArray* targets = user.targets.allObjects;
     NSMutableArray* result = [[NSMutableArray alloc]initWithCapacity:targets.count];
     for (Targets* iter  in targets) {
-        if (iter.has_history) {
+        if (iter.has_history.boolValue) {
             [result addObject:iter.target_id];
         }
     }
@@ -73,6 +74,8 @@
     tmp.type = [NSNumber numberWithInteger:message_type];
     tmp.content = message_content;
     tmp.date = [NSDate date];
+    tmp.type = [NSNumber numberWithInt:message_type];
+    tmp.status = [NSNumber numberWithInt:MessagesStatusSended];
     tmp.toWho = target;
     [target addMessagesObject:tmp];
 }
@@ -90,11 +93,10 @@
     
 }
 
-+ (Targets*)queryTargetInContext:(NSManagedObjectContext*)context User:(NSString*)user_id TargetID:(NSString*)target_id {
++ (Targets*)queryTargetInContext:(NSManagedObjectContext*)context UserID:(NSString*)user_id TargetID:(NSString*)target_id {
     
     NSFetchRequest* request = [NSFetchRequest fetchRequestWithEntityName:@"Targets"];
-    request.predicate = [NSPredicate predicateWithFormat:@"Owner.user_id=%@", user_id];
-    request.predicate = [NSPredicate predicateWithFormat:@"target_id=%@", target_id];
+    request.predicate = [NSPredicate predicateWithFormat:@"(target_id=%@) AND (owner.user_id=%@)", target_id, user_id];
 //    NSSortDescriptor* des = [NSSortDescriptor sortDescriptorWithKey:@"user_id" ascending:YES];
 //    request.sortDescriptors = [NSArray arrayWithObjects: des, nil];
     
@@ -122,6 +124,26 @@
     }
 }
 
++ (void)saveMessagesInContext:(NSManagedObjectContext*)context Target:(Targets*)target Messages:(NSArray*)arr {
+    for (Messages* iter in target.messages.allObjects) {
+        [context deleteObject:iter];
+    }
+    [target removeMessages:target.messages];
+    
+    for (NSDictionary* iter in arr) {
+        Messages* tmp = [NSEntityDescription insertNewObjectForEntityForName:@"Messages" inManagedObjectContext:context];
+        tmp.content = [iter objectForKey:@"message_content"];
+        tmp.type = [iter objectForKey:@"message_type"];
+        tmp.toWho = target;
+        tmp.type = MessageTypeTextMessage;
+        if ([[iter objectForKey:@"sender"] isEqualToString:target.target_id]) {
+            tmp.status = [NSNumber numberWithInt:MessagesStatusReaded];
+        } else {
+            tmp.status = [NSNumber numberWithInt:MessagesStatusSended];
+        }
+    }
+}
+
 #pragma mark -- friends
 + (NSArray*)loadFriendsInContext:(NSManagedObjectContext*)context User:(Owner*)user {
    
@@ -137,7 +159,7 @@
 + (void)saveFriendsInContext:(NSManagedObjectContext*)context User:(Owner*)user Friends:(NSArray*)array {
 
     for (Targets* iter in user.targets.allObjects) {
-        if (iter.is_friends) {
+        if (iter.is_friends.boolValue) {
             [user removeTargetsObject:iter];
             [context deleteObject:iter];
         }

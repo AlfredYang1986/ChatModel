@@ -2,7 +2,7 @@
 //  Targets.m
 //  ChatModel
 //
-//  Created by Alfred Yang on 4/05/2015.
+//  Created by Alfred Yang on 5/05/2015.
 //  Copyright (c) 2015 YY. All rights reserved.
 //
 
@@ -13,10 +13,10 @@
 
 @implementation Targets
 
+@dynamic has_history;
+@dynamic is_friends;
 @dynamic target_id;
 @dynamic target_type;
-@dynamic is_friends;
-@dynamic has_history;
 @dynamic messages;
 @dynamic owner;
 

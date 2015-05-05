@@ -2,7 +2,7 @@
 //  Targets.h
 //  ChatModel
 //
-//  Created by Alfred Yang on 4/05/2015.
+//  Created by Alfred Yang on 5/05/2015.
 //  Copyright (c) 2015 YY. All rights reserved.
 //
 
@@ -13,10 +13,10 @@
 
 @interface Targets : NSManagedObject
 
+@property (nonatomic, retain) NSNumber * has_history;
+@property (nonatomic, retain) NSNumber * is_friends;
 @property (nonatomic, retain) NSString * target_id;
 @property (nonatomic, retain) NSNumber * target_type;
-@property (nonatomic, retain) NSNumber * is_friends;
-@property (nonatomic, retain) NSNumber * has_history;
 @property (nonatomic, retain) NSSet *messages;
 @property (nonatomic, retain) Owner *owner;
 @end

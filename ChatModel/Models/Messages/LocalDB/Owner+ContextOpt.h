@@ -8,12 +8,8 @@
 
 #import <Foundation/Foundation.h>
 #import "Owner.h"
+#import "EnumDefines.h"
 
-typedef NS_ENUM(NSInteger, MessageType) {
-    MessageTypeTextMessage,
-    MessageTypeImageMessage,
-    MessageTypeMovieMessage,
-};
 
 @interface Owner (ContextOpt)
 
@@ -24,9 +20,9 @@ typedef NS_ENUM(NSInteger, MessageType) {
 + (NSArray*)loadHistoricalChatTargetInContext:(NSManagedObjectContext*)context User:(Owner*)user;
 + (void)downloadHistoricalMessageInContext:(NSManagedObjectContext*)context Target:(Targets*)target Contects:(NSArray*)content;
 + (void)addOneMessageInContext:(NSManagedObjectContext*)context Target:(Targets*)target type:(MessageType)message_type content:(NSString*)message_content;
++ (void)saveMessagesInContext:(NSManagedObjectContext*)context Target:(Targets*)target Messages:(NSArray*)arr;
 + (void)saveAllHistoricalMessagesInContext:(NSManagedObjectContext*)context;
-+ (Targets*)queryTargetInContext:(NSManagedObjectContext*)context User:(Owner*)user TargetID:(NSString*)target_id;
-
++ (Targets*)queryTargetInContext:(NSManagedObjectContext*)context UserID:(NSString*)user_id TargetID:(NSString*)target_id;
 + (NSArray*)queryMessagesInContext:(NSManagedObjectContext*)context Target:(Targets*)target;
 
 #pragma mark -- friends

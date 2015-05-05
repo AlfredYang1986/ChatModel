@@ -3,6 +3,7 @@
     <entity name="Messages" representedClassName="Messages" syncable="YES">
         <attribute name="content" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="date" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="status" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
         <attribute name="type" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
         <relationship name="toWho" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Targets" inverseName="messages" inverseEntity="Targets" syncable="YES"/>
     </entity>
@@ -19,7 +20,7 @@
         <relationship name="owner" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Owner" inverseName="targets" inverseEntity="Owner" syncable="YES"/>
     </entity>
     <elements>
-        <element name="Messages" positionX="-3593" positionY="-5679" width="128" height="103"/>
+        <element name="Messages" positionX="-3593" positionY="-5679" width="128" height="118"/>
         <element name="Owner" positionX="-4034" positionY="-5692" width="128" height="73"/>
         <element name="Targets" positionX="-3800" positionY="-5683" width="128" height="133"/>
     </elements>

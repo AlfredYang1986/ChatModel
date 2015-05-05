@@ -35,7 +35,6 @@
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithTitle:@"add friend" style:UIBarButtonItemStyleDone target:self action:@selector(didSelectAddFriendBtn:)];
     
     _friendArray = [_mm loadAllFriends];
-    self.navigationController.tabBarController.hidesBottomBarWhenPushed = YES;
 }
 
 - (void)didReceiveMemoryWarning {
@@ -56,17 +55,21 @@
 #pragma mark -- table view delegate
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     NSLog(@"selet row");
-    [self performSegueWithIdentifier:@"ChatDetail" sender:indexPath];
+    if (indexPath.row != 1 + [self enumFriendCounts] && indexPath.row != 0) {
+        [self performSegueWithIdentifier:@"ChatDetail" sender:indexPath];
+    }
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     if ([segue.identifier isEqualToString:@"ChatDetail"]) {
         ((ChatViewController*)segue.destinationViewController).mm = _mm;
+        ((ChatViewController*)segue.destinationViewController).target_id = [_friendArray objectAtIndex:((NSIndexPath*)sender).row - 1];
     }
 }
 
 - (BOOL)tableView:(UITableView *)tableView shouldHighlightRowAtIndexPath:(NSIndexPath *)indexPath {
-    return YES;
+    return indexPath.row != 1 + [self enumFriendCounts] && indexPath.row != 0;
+//    return YES;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {

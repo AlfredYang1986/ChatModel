@@ -9,14 +9,18 @@
 #import "ChatViewController.h"
 #import "MessageModel.h"
 #import "Targets.h"
+#import "Messages.h"
+#import "EnumDefines.h"
 
 @interface ChatViewController () <UITableViewDataSource, UITableViewDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *queryView;
+@property (weak, nonatomic) IBOutlet UITextField *messageTextField;
 @property (strong, nonatomic) Targets* target;
 @end
 
 @implementation ChatViewController {
     BOOL _isLoading;
+    NSArray* _chat_list;
 }
 
 @synthesize queryView = _queryView;
@@ -30,6 +34,12 @@
     _isLoading = NO;
     
     _target = [_mm targetWithName:_target_id];
+    _chat_list = [_mm loadMessagesWithTargetID:_target_id];
+}
+
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    [self reloadChatMessage];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -90,18 +100,32 @@
         if (cell == nil) {
             cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"default"];
         }
-        
-        cell.textLabel.text = [self enumFriendNameAtIndex:indexPath.row - 1];
+     
+        MessageStatus s = [self enumMessageStatusAtIndex:indexPath.row - 1];
+        if (s  == MessagesStatusSended || s == MessagesStatusUnSended) {
+            cell.textLabel.textAlignment = NSTextAlignmentRight;
+        } else {
+            cell.textLabel.textAlignment = NSTextAlignmentLeft;
+        }
+        cell.textLabel.text = [self enumMessageContentAtIndex:indexPath.row - 1];
         return cell;
     }
 }
 
-- (NSString*)enumFriendNameAtIndex:(NSInteger)index {
-    return @"alfred";
+- (NSString*)enumMessageContentAtIndex:(NSInteger)index {
+    return ((Messages*)[_chat_list objectAtIndex:index]).content;
+}
+
+- (MessageType)enumMessageTypeAtIndex:(NSInteger)index {
+    return MessageTypeTextMessage;
+}
+
+- (MessageStatus)enumMessageStatusAtIndex:(NSInteger)index {
+    return ((MessageStatus)((Messages*)[_chat_list objectAtIndex:index]).status);
 }
 
 - (NSInteger)enumChatsCounts{
-    return 2;
+    return _chat_list.count;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
@@ -144,6 +168,18 @@
         }
     }
     _isLoading = NO;
+}
+
+- (void)reloadChatMessage {
+    NSIndexPath* p = [NSIndexPath indexPathForRow:[self enumChatsCounts] inSection:0];
+    [_queryView scrollToRowAtIndexPath:p atScrollPosition:UITableViewScrollPositionBottom animated:NO];
+}
+
+- (IBAction)didSelectSendBtn {
+    NSString* txt = @"alfred test ...";
+    [_mm addMessageToTarget:_target_id Content:txt];
+    _chat_list = [_mm localMessagesWithTargetID:_target_id];
+    [_queryView reloadData];
 }
 
 @end

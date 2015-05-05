@@ -115,7 +115,7 @@
         <!--Chat With-->
         <scene sceneID="pip-tH-c5l">
             <objects>
-                <viewController id="TaK-iF-cfM" customClass="ChatViewController" sceneMemberID="viewController">
+                <viewController hidesBottomBarWhenPushed="YES" id="TaK-iF-cfM" customClass="ChatViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="5iv-Y2-Rbe"/>
                         <viewControllerLayoutGuide type="bottom" id="KWm-QD-OYg"/>
@@ -124,20 +124,73 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2GL-L2-Ipy">
+                                <rect key="frame" x="0.0" y="507" width="600" height="44"/>
+                                <subviews>
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="1TF-od-YFy">
+                                        <rect key="frame" x="27" y="7" width="377" height="30"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits"/>
+                                    </textField>
+                                    <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rVk-uT-gaJ">
+                                        <rect key="frame" x="418" y="7" width="34" height="30"/>
+                                        <state key="normal" title="send"/>
+                                        <connections>
+                                            <action selector="didSelectSendBtn" destination="TaK-iF-cfM" eventType="touchUpInside" id="vs9-Rd-bOl"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstItem="rVk-uT-gaJ" firstAttribute="leading" secondItem="1TF-od-YFy" secondAttribute="trailing" constant="14" id="2nm-Yc-0fz"/>
+                                    <constraint firstAttribute="trailing" secondItem="rVk-uT-gaJ" secondAttribute="trailing" constant="14" id="6ll-w0-0No"/>
+                                    <constraint firstItem="rVk-uT-gaJ" firstAttribute="leading" secondItem="1TF-od-YFy" secondAttribute="trailing" constant="14" id="K7b-Uo-qjc"/>
+                                    <constraint firstItem="1TF-od-YFy" firstAttribute="leading" secondItem="2GL-L2-Ipy" secondAttribute="leading" constant="27" id="Lsy-CR-JxM"/>
+                                    <constraint firstAttribute="bottom" secondItem="rVk-uT-gaJ" secondAttribute="bottom" constant="7" id="R4c-hH-XaN"/>
+                                    <constraint firstItem="rVk-uT-gaJ" firstAttribute="top" secondItem="2GL-L2-Ipy" secondAttribute="top" constant="7" id="h4n-6g-mEU"/>
+                                    <constraint firstItem="rVk-uT-gaJ" firstAttribute="leading" secondItem="1TF-od-YFy" secondAttribute="trailing" constant="14" id="jqB-Xy-eIO"/>
+                                    <constraint firstAttribute="height" constant="44" id="kCL-MV-1Zm"/>
+                                    <constraint firstAttribute="bottom" secondItem="1TF-od-YFy" secondAttribute="bottom" constant="7" id="kzV-HS-J9P"/>
+                                    <constraint firstItem="1TF-od-YFy" firstAttribute="top" secondItem="2GL-L2-Ipy" secondAttribute="top" constant="7" id="wHR-cC-LFg"/>
+                                </constraints>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="K7b-Uo-qjc"/>
+                                        <exclude reference="jqB-Xy-eIO"/>
+                                    </mask>
+                                </variation>
+                            </view>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="DNJ-Qb-foM">
-                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="508"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <connections>
+                                    <outlet property="dataSource" destination="TaK-iF-cfM" id="Phk-EJ-lPK"/>
+                                    <outlet property="delegate" destination="TaK-iF-cfM" id="NKO-ng-dcG"/>
+                                </connections>
                             </tableView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="2GL-L2-Ipy" firstAttribute="leading" secondItem="AxR-Pk-8SM" secondAttribute="leadingMargin" constant="-16" id="Ef6-gt-Yv1"/>
                             <constraint firstItem="DNJ-Qb-foM" firstAttribute="leading" secondItem="AxR-Pk-8SM" secondAttribute="leadingMargin" constant="-16" id="Gco-br-jSe"/>
+                            <constraint firstItem="DNJ-Qb-foM" firstAttribute="top" secondItem="5iv-Y2-Rbe" secondAttribute="bottom" constant="-44" id="JSd-dp-dtx"/>
+                            <constraint firstItem="KWm-QD-OYg" firstAttribute="top" secondItem="2GL-L2-Ipy" secondAttribute="bottom" id="Wmz-NF-Ntl"/>
                             <constraint firstAttribute="trailingMargin" secondItem="DNJ-Qb-foM" secondAttribute="trailing" constant="-16" id="dlY-zM-nUd"/>
-                            <constraint firstItem="KWm-QD-OYg" firstAttribute="top" secondItem="DNJ-Qb-foM" secondAttribute="bottom" id="lXT-Ym-wXb"/>
+                            <constraint firstItem="KWm-QD-OYg" firstAttribute="top" secondItem="DNJ-Qb-foM" secondAttribute="bottom" constant="44" id="lXT-Ym-wXb"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="2GL-L2-Ipy" secondAttribute="trailing" constant="-16" id="qkU-B4-WSO"/>
                             <constraint firstItem="DNJ-Qb-foM" firstAttribute="top" secondItem="AxR-Pk-8SM" secondAttribute="topMargin" id="v0z-AR-OfQ"/>
                         </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="v0z-AR-OfQ"/>
+                            </mask>
+                        </variation>
                     </view>
                     <navigationItem key="navigationItem" title="Chat With" id="HVb-cz-3gh"/>
+                    <connections>
+                        <outlet property="messageTextField" destination="1TF-od-YFy" id="WUz-GA-c25"/>
+                        <outlet property="queryView" destination="DNJ-Qb-foM" id="T4K-2G-8fa"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="krR-Ik-ebA" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -194,7 +247,7 @@
                     <navigationItem key="navigationItem" title="Friends" id="fOk-Az-Pdk"/>
                     <connections>
                         <outlet property="queryView" destination="S9F-0O-1qF" id="ImS-0V-WTd"/>
-                        <segue destination="TaK-iF-cfM" kind="push" id="vj9-kg-wSs"/>
+                        <segue destination="TaK-iF-cfM" kind="push" identifier="ChatDetail" id="vj9-kg-wSs"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ORO-WV-dv5" userLabel="First Responder" sceneMemberID="firstResponder"/>

@@ -30,7 +30,6 @@
     AppDelegate* app = [[UIApplication sharedApplication]delegate];
     _mm = app.mm;
 
-    self.navigationController.tabBarController.hidesBottomBarWhenPushed = YES;
 }
 
 - (void)didReceiveMemoryWarning {

@@ -24,4 +24,10 @@
 - (BOOL)addFriendWithFriendID:(NSString*)friend_id;
 
 - (NSArray*)loadAllFriends;
+
+- (NSArray*)loadMessagesWithTargetID:(NSString*)target_id;
+- (void)savaMessageWithTargetID:(NSString*)target_id Messages:(NSArray*)arr;
+- (NSArray*)localMessagesWithTargetID:(NSString*)target_id;
+
+- (void)addMessageToTarget:(NSString*)target_id Content:(NSString*)content;
 @end

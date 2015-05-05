@@ -21,10 +21,11 @@ typedef NS_ENUM(NSInteger, ModelAttchmentType) {
 #define LOGIN                           [HOST_DOMAIN stringByAppendingString:@"loginWithName"]
 #define SENDMESSAGE                     [HOST_DOMAIN stringByAppendingString:@"sendMessage"]
 #define QUERYMESSAGES                   [HOST_DOMAIN stringByAppendingString:@"queryMessages"]
+#define QUERYMESSAGESWITHFRIEND         [HOST_DOMAIN stringByAppendingString:@"queryMessagesWithFriend"]
 #define REGISTERDEVICE                  [HOST_DOMAIN stringByAppendingString:@"registerDevice"]
 #define ADDFRIEND                       [HOST_DOMAIN stringByAppendingString:@"addOneFriend"]
 #define QUERYFRIENDS                    [HOST_DOMAIN stringByAppendingString:@"queryAllFriend"]
 
 
 #pragma mark -- database
-#define LOCALDB_CHAT                    @"ChatData01.sqlite"
+#define LOCALDB_CHAT                    @"ChatData03.sqlite"

@@ -10,6 +10,8 @@
 #import "ModelDefines.h"
 #import <CoreData/CoreData.h>
 #import "Owner.h"
+#import "Targets.h"
+#import "Messages.h"
 #import "Owner+ContextOpt.h"
 #import "RemoteInstance.h"
 
@@ -115,7 +117,61 @@
 }
 
 - (Targets*)targetWithName:(NSString*)target_id {
-    Owner* o = [Owner loadOwnerInContext:_doc.managedObjectContext User:_user_id];
-    return [Owner queryTargetInContext:_doc.managedObjectContext User:o TargetID:target_id];
+//    Owner* o = [Owner loadOwnerInContext:_doc.managedObjectContext User:_user_id];
+    return [Owner queryTargetInContext:_doc.managedObjectContext UserID:_user_id TargetID:target_id];
+}
+
+- (NSArray*)loadMessagesWithTargetID:(NSString*)target_id {
+
+    
+    NSMutableDictionary* dic = [[NSMutableDictionary alloc]init];
+    [dic setValue:_user_id forKey:@"user_id"];
+    [dic setValue:target_id forKey:@"target_id"];
+    
+    NSError * error = nil;
+    NSData* jsonData =[NSJSONSerialization dataWithJSONObject:[dic copy] options:NSJSONWritingPrettyPrinted error:&error];
+    
+    NSDictionary* result = [RemoteInstance remoteSeverRequestData:jsonData toUrl:[NSURL URLWithString:QUERYMESSAGES]];
+    
+    if ([[result objectForKey:@"status"] isEqualToString:@"ok"]) {
+        NSArray* arr = [[result objectForKey:@"result"] objectForKey:target_id];
+        Targets* t = [Owner queryTargetInContext:_doc.managedObjectContext UserID:_user_id TargetID:target_id];
+        [Owner saveMessagesInContext:_doc.managedObjectContext Target:t Messages:arr];
+        return [Owner queryMessagesInContext:_doc.managedObjectContext Target:t];
+    } else {
+        return nil;
+    }
+}
+
+- (void)addMessageToTarget:(NSString*)target_id Content:(NSString*)content {
+    Targets* t = [Owner queryTargetInContext:_doc.managedObjectContext UserID:_user_id TargetID:target_id];
+    [Owner addOneMessageInContext:_doc.managedObjectContext Target:t type:MessageTypeTextMessage content:content];
+    
+    NSMutableDictionary* dic = [[NSMutableDictionary alloc]init];
+    [dic setValue:_user_id forKey:@"user_id"];
+    [dic setValue:target_id forKey:@"receiver"];
+    [dic setValue:[NSNumber numberWithInt: MessageTypeTextMessage] forKey:@"message_type"];
+    [dic setValue:content forKey:@"message_content"];
+    
+    NSError * error = nil;
+    NSData* jsonData =[NSJSONSerialization dataWithJSONObject:[dic copy] options:NSJSONWritingPrettyPrinted error:&error];
+    
+    NSDictionary* result = [RemoteInstance remoteSeverRequestData:jsonData toUrl:[NSURL URLWithString:SENDMESSAGE]];
+    
+    if ([[result objectForKey:@"status"] isEqualToString:@"ok"]) {
+        NSLog(@"Send message success");
+    } else {
+        NSLog(@"Send message failed");
+    }
+}
+
+- (void)savaMessageWithTargetID:(NSString*)target_id Messages:(NSArray*)arr {
+    
+}
+
+- (NSArray*)localMessagesWithTargetID:(NSString*)target_id {
+//    Owner* o = [Owner loadOwnerInContext:_doc.managedObjectContext User:_user_id];
+    Targets* t = [Owner queryTargetInContext:_doc.managedObjectContext UserID:_user_id TargetID:target_id];
+    return [Owner queryMessagesInContext:_doc.managedObjectContext Target:t];
 }
 @end
