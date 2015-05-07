@@ -23,6 +23,11 @@
 		EE27EF4A1AF681FD00A672E0 /* HistoryChatsController.m in Sources */ = {isa = PBXBuildFile; fileRef = EE27EF491AF681FD00A672E0 /* HistoryChatsController.m */; };
 		EE28031E1AF7E29900B1373E /* ChatViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EE28031D1AF7E29900B1373E /* ChatViewController.m */; };
 		EE2D54F01AF72D3400F277D8 /* FriendsController.m in Sources */ = {isa = PBXBuildFile; fileRef = EE2D54EF1AF72D3400F277D8 /* FriendsController.m */; };
+		EED62A821AFBAE6800417FA2 /* SRWebSocket.m in Sources */ = {isa = PBXBuildFile; fileRef = EED62A811AFBAE6800417FA2 /* SRWebSocket.m */; };
+		EED62A8B1AFBAEE400417FA2 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EED62A891AFBAECC00417FA2 /* Foundation.framework */; };
+		EED62A8C1AFBAEE400417FA2 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EED62A871AFBAEC000417FA2 /* Security.framework */; };
+		EED62A8D1AFBAEE400417FA2 /* libicucore.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = EED62A851AFBAEB400417FA2 /* libicucore.dylib */; };
+		EED62A8E1AFBAEE400417FA2 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EED62A831AFBAE9E00417FA2 /* CFNetwork.framework */; };
 		EED6B62F1AF883B80067DF68 /* Owner.m in Sources */ = {isa = PBXBuildFile; fileRef = EED6B62E1AF883B80067DF68 /* Owner.m */; };
 		EED6B6321AF883B90067DF68 /* Targets.m in Sources */ = {isa = PBXBuildFile; fileRef = EED6B6311AF883B90067DF68 /* Targets.m */; };
 		EED6B6351AF883B90067DF68 /* Messages.m in Sources */ = {isa = PBXBuildFile; fileRef = EED6B6341AF883B90067DF68 /* Messages.m */; };
@@ -69,6 +74,13 @@
 		EE28031D1AF7E29900B1373E /* ChatViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChatViewController.m; sourceTree = "<group>"; };
 		EE2D54EE1AF72D3400F277D8 /* FriendsController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FriendsController.h; sourceTree = "<group>"; };
 		EE2D54EF1AF72D3400F277D8 /* FriendsController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FriendsController.m; sourceTree = "<group>"; };
+		EED62A7F1AFBAE6800417FA2 /* SocketRocket-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "SocketRocket-Prefix.pch"; sourceTree = "<group>"; };
+		EED62A801AFBAE6800417FA2 /* SRWebSocket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SRWebSocket.h; sourceTree = "<group>"; };
+		EED62A811AFBAE6800417FA2 /* SRWebSocket.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SRWebSocket.m; sourceTree = "<group>"; };
+		EED62A831AFBAE9E00417FA2 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
+		EED62A851AFBAEB400417FA2 /* libicucore.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libicucore.dylib; path = usr/lib/libicucore.dylib; sourceTree = SDKROOT; };
+		EED62A871AFBAEC000417FA2 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
+		EED62A891AFBAECC00417FA2 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		EED6B62D1AF883B80067DF68 /* Owner.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Owner.h; sourceTree = "<group>"; };
 		EED6B62E1AF883B80067DF68 /* Owner.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Owner.m; sourceTree = "<group>"; };
 		EED6B6301AF883B90067DF68 /* Targets.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Targets.h; sourceTree = "<group>"; };
@@ -84,6 +96,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				EE27EF231AF6593E00A672E0 /* CoreData.framework in Frameworks */,
+				EED62A8B1AFBAEE400417FA2 /* Foundation.framework in Frameworks */,
+				EED62A8C1AFBAEE400417FA2 /* Security.framework in Frameworks */,
+				EED62A8D1AFBAEE400417FA2 /* libicucore.dylib in Frameworks */,
+				EED62A8E1AFBAEE400417FA2 /* CFNetwork.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -119,6 +135,7 @@
 		EE27EEE01AF5F22100A672E0 /* ChatModel */ = {
 			isa = PBXGroup;
 			children = (
+				EED62A7E1AFBAE6800417FA2 /* SocketRocket */,
 				EE27EEE51AF5F22100A672E0 /* AppDelegate.h */,
 				EE27EEE61AF5F22100A672E0 /* AppDelegate.m */,
 				EE27EF0E1AF64F5F00A672E0 /* Controllers */,
@@ -231,10 +248,24 @@
 		EE27EF221AF6591E00A672E0 /* Framework */ = {
 			isa = PBXGroup;
 			children = (
+				EED62A891AFBAECC00417FA2 /* Foundation.framework */,
+				EED62A871AFBAEC000417FA2 /* Security.framework */,
+				EED62A851AFBAEB400417FA2 /* libicucore.dylib */,
+				EED62A831AFBAE9E00417FA2 /* CFNetwork.framework */,
 				EE27EF201AF658F700A672E0 /* CoreData.framework */,
 			);
 			name = Framework;
 			path = ChatModel/Framework;
+			sourceTree = "<group>";
+		};
+		EED62A7E1AFBAE6800417FA2 /* SocketRocket */ = {
+			isa = PBXGroup;
+			children = (
+				EED62A7F1AFBAE6800417FA2 /* SocketRocket-Prefix.pch */,
+				EED62A801AFBAE6800417FA2 /* SRWebSocket.h */,
+				EED62A811AFBAE6800417FA2 /* SRWebSocket.m */,
+			);
+			path = SocketRocket;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -349,6 +380,7 @@
 				EE27EEE41AF5F22100A672E0 /* main.m in Sources */,
 				EED6B62F1AF883B80067DF68 /* Owner.m in Sources */,
 				EED6B6351AF883B90067DF68 /* Messages.m in Sources */,
+				EED62A821AFBAE6800417FA2 /* SRWebSocket.m in Sources */,
 				EE28031E1AF7E29900B1373E /* ChatViewController.m in Sources */,
 				EE27EF4A1AF681FD00A672E0 /* HistoryChatsController.m in Sources */,
 			);

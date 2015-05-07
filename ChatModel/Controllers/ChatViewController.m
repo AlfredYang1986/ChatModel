@@ -11,8 +11,11 @@
 #import "Targets.h"
 #import "Messages.h"
 #import "EnumDefines.h"
+#import "SRWebSocket.h"
+#import "ModelDefines.h"
+#import "Owner.h"
 
-@interface ChatViewController () <UITableViewDataSource, UITableViewDelegate>
+@interface ChatViewController () <UITableViewDataSource, UITableViewDelegate, SRWebSocketDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *queryView;
 @property (weak, nonatomic) IBOutlet UITextField *messageTextField;
 @property (strong, nonatomic) Targets* target;
@@ -21,6 +24,8 @@
 @implementation ChatViewController {
     BOOL _isLoading;
     NSArray* _chat_list;
+    BOOL _isWebSocketConnecting;
+    SRWebSocket* _socket;
 }
 
 @synthesize queryView = _queryView;
@@ -32,9 +37,16 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     _isLoading = NO;
+    _isWebSocketConnecting = NO;
     
     _target = [_mm targetWithName:_target_id];
     _chat_list = [_mm loadMessagesWithTargetID:_target_id];
+    
+    NSString* user_id = [@"ws://192.168.1.105:9000/registerDevice/" stringByAppendingString: _target.owner.user_id];
+    NSURLRequest* request = [NSURLRequest requestWithURL:[NSURL URLWithString:user_id]];
+    _socket = [[SRWebSocket alloc]initWithURLRequest:request];
+    _socket.delegate = self;
+    [_socket open];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -197,12 +209,46 @@
 
 - (IBAction)didSelectSendBtn {
     NSString* txt = @"alfred test ...";
-    [_mm addMessageToTarget:_target_id Content:txt];
-    _chat_list = [_mm localMessagesWithTargetID:_target_id];
-    [_queryView reloadData];
+//    [_mm addMessageToTarget:_target_id Content:txt];
+//    _chat_list = [_mm localMessagesWithTargetID:_target_id];
+//    [_queryView reloadData];
+//    
+//    // add this to historical chat
+//    [_mm addFriendToHistoryChat:_target_id];
     
-    // add this to historical chat
-    [_mm addFriendToHistoryChat:_target_id];
+//    NSMutableDictionary* dic = [[NSMutableDictionary alloc]init];
+//    [dic setValue:_target.owner.user_id forKey:@"user_id"];
+//    [dic setValue:_target_id forKey:@"receiver"];
+//    [dic setValue:[NSNumber numberWithInt: MessageTypeTextMessage] forKey:@"message_type"];
+//    [dic setValue:txt forKey:@"message_content"];
+    
+//    [dic setValue:@"123" forKey:@"text"];
+    
+    
+//    NSError * error = nil;
+//    NSData* jsonData =[NSJSONSerialization dataWithJSONObject:[dic copy] options:NSJSONWritingPrettyPrinted error:&error];
+    
+    NSString* test = [NSString stringWithFormat: @"{\"user_id\":\"%@\", \"receiver\":\"%@\", \"message_type\":%d, \"message_content\":\"%@\"}", _target.owner.user_id, _target_id, 0, txt];
+    
+    [_socket send:test];
+}
+
+#pragma mark -- SRWebSocketDelegate
+- (void)webSocket:(SRWebSocket *)webSocket didReceiveMessage:(id)message {
+    NSData* data = (NSData*)message;
+    NSLog(@"%@", data);
+}
+
+- (void)webSocketDidOpen:(SRWebSocket *)webSocket {
+    NSLog(@"Opened success");
+}
+
+- (void)webSocket:(SRWebSocket *)webSocket didFailWithError:(NSError *)error {
+    NSLog(@"Web Socket error: %@", error.description);
+}
+
+- (void)webSocket:(SRWebSocket *)webSocket didCloseWithCode:(NSInteger)code reason:(NSString *)reason wasClean:(BOOL)wasClean {
+    NSLog(@"Close web socket");
 }
 
 @end
