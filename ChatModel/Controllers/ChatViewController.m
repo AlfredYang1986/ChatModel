@@ -54,6 +54,11 @@
     [self reloadChatMessage];
 }
 
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    [_socket close];
+}
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
@@ -208,7 +213,6 @@
 }
 
 - (IBAction)didSelectSendBtn {
-    NSString* txt = @"alfred test ...";
 //    [_mm addMessageToTarget:_target_id Content:txt];
 //    _chat_list = [_mm localMessagesWithTargetID:_target_id];
 //    [_queryView reloadData];
@@ -228,15 +232,40 @@
 //    NSError * error = nil;
 //    NSData* jsonData =[NSJSONSerialization dataWithJSONObject:[dic copy] options:NSJSONWritingPrettyPrinted error:&error];
     
-    NSString* test = [NSString stringWithFormat: @"{\"user_id\":\"%@\", \"receiver\":\"%@\", \"message_type\":%d, \"message_content\":\"%@\"}", _target.owner.user_id, _target_id, 0, txt];
+    NSString* txt = @"alfred test ...";
+    NSString* jsonData = [NSString stringWithFormat: @"{\"user_id\":\"%@\", \"receiver\":\"%@\", \"message_type\":%d, \"message_content\":\"%@\"}", _target.owner.user_id, _target_id, 0, txt];
     
-    [_socket send:test];
+    [_socket send:jsonData];
+    
+    [_mm addMessageToTarget:_target_id Content:txt];
+    _chat_list = [_mm localMessagesWithTargetID:_target_id];
+    [_queryView reloadData];
+    
+    // add this to historical chat
+    [_mm addFriendToHistoryChat:_target_id];
 }
 
 #pragma mark -- SRWebSocketDelegate
 - (void)webSocket:(SRWebSocket *)webSocket didReceiveMessage:(id)message {
-    NSData* data = (NSData*)message;
-    NSLog(@"%@", data);
+    NSString *receiveData = message;
+    NSData *utf8Data = [receiveData dataUsingEncoding:NSUTF8StringEncoding];
+//    NSData* data = (NSData*)message;
+    NSLog(@"%@", utf8Data);
+   
+    NSError * error = nil;
+    NSDictionary * apperals = [NSJSONSerialization JSONObjectWithData:utf8Data options:NSJSONReadingMutableLeaves | NSJSONReadingMutableContainers error:&error];
+    NSLog(@"%@", apperals);
+
+    NSString* from_tagget_id = [apperals objectForKey:@"sender"];
+    NSString* from_message_content = [apperals objectForKey:@"message_content"];
+    [_mm addMessageFromTarget:from_tagget_id Content:from_message_content];
+    
+    _chat_list = [_mm localMessagesWithTargetID:from_tagget_id];
+    [_queryView reloadData];
+    
+    // add this to historical chat
+    [_mm addFriendToHistoryChat:from_tagget_id];
+
 }
 
 - (void)webSocketDidOpen:(SRWebSocket *)webSocket {

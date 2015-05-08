@@ -148,23 +148,29 @@
     Targets* t = [Owner queryTargetInContext:_doc.managedObjectContext UserID:_user_id TargetID:target_id];
     [Owner addOneMessageInContext:_doc.managedObjectContext Target:t type:MessageTypeTextMessage content:content];
     
-    NSMutableDictionary* dic = [[NSMutableDictionary alloc]init];
-    [dic setValue:_user_id forKey:@"user_id"];
-    [dic setValue:target_id forKey:@"receiver"];
-    [dic setValue:[NSNumber numberWithInt: MessageTypeTextMessage] forKey:@"message_type"];
-    [dic setValue:content forKey:@"message_content"];
-    
-    NSError * error = nil;
-    NSData* jsonData =[NSJSONSerialization dataWithJSONObject:[dic copy] options:NSJSONWritingPrettyPrinted error:&error];
-    
-    NSDictionary* result = [RemoteInstance remoteSeverRequestData:jsonData toUrl:[NSURL URLWithString:SENDMESSAGE]];
-    
-    if ([[result objectForKey:@"status"] isEqualToString:@"ok"]) {
-        NSLog(@"Send message success");
-    } else {
-        NSLog(@"Send message failed");
-    }
+//    NSMutableDictionary* dic = [[NSMutableDictionary alloc]init];
+//    [dic setValue:_user_id forKey:@"user_id"];
+//    [dic setValue:target_id forKey:@"receiver"];
+//    [dic setValue:[NSNumber numberWithInt: MessageTypeTextMessage] forKey:@"message_type"];
+//    [dic setValue:content forKey:@"message_content"];
+//    
+//    NSError * error = nil;
+//    NSData* jsonData =[NSJSONSerialization dataWithJSONObject:[dic copy] options:NSJSONWritingPrettyPrinted error:&error];
+//    
+//    NSDictionary* result = [RemoteInstance remoteSeverRequestData:jsonData toUrl:[NSURL URLWithString:SENDMESSAGE]];
+//    
+//    if ([[result objectForKey:@"status"] isEqualToString:@"ok"]) {
+//        NSLog(@"Send message success");
+//    } else {
+//        NSLog(@"Send message failed");
+//    }
 }
+
+- (void)addMessageFromTarget:(NSString*)target_id Content:(NSString*)content {
+    Targets* t = [Owner queryTargetInContext:_doc.managedObjectContext UserID:_user_id TargetID:target_id];
+    [Owner receiveOneMessageInContext:_doc.managedObjectContext FromTarget:t type:MessageTypeTextMessage content: content];
+}
+ 
 
 - (void)savaMessageWithTargetID:(NSString*)target_id Messages:(NSArray*)arr {
     

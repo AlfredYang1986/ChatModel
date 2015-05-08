@@ -31,6 +31,7 @@
 - (NSArray*)localMessagesWithTargetID:(NSString*)target_id;
 
 - (void)addMessageToTarget:(NSString*)target_id Content:(NSString*)content;
+- (void)addMessageFromTarget:(NSString*)target_id Content:(NSString*)content;
 
 - (void)addFriendToHistoryChat:(NSString*)target_id;
 @end

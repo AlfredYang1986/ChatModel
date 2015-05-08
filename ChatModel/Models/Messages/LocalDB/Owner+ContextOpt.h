@@ -20,6 +20,7 @@
 + (NSArray*)loadHistoricalChatTargetInContext:(NSManagedObjectContext*)context User:(Owner*)user;
 + (void)downloadHistoricalMessageInContext:(NSManagedObjectContext*)context Target:(Targets*)target Contects:(NSArray*)content;
 + (void)addOneMessageInContext:(NSManagedObjectContext*)context Target:(Targets*)target type:(MessageType)message_type content:(NSString*)message_content;
++ (void)receiveOneMessageInContext:(NSManagedObjectContext*)context FromTarget:(Targets*)target type:(MessageType)message_type content:(NSString*)message_content;
 + (void)saveMessagesInContext:(NSManagedObjectContext*)context Target:(Targets*)target Messages:(NSArray*)arr;
 + (void)saveAllHistoricalMessagesInContext:(NSManagedObjectContext*)context;
 + (Targets*)queryTargetInContext:(NSManagedObjectContext*)context UserID:(NSString*)user_id TargetID:(NSString*)target_id;

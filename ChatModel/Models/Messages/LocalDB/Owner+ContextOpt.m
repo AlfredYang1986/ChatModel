@@ -80,6 +80,17 @@
     [target addMessagesObject:tmp];
 }
 
++ (void)receiveOneMessageInContext:(NSManagedObjectContext*)context FromTarget:(Targets*)target type:(MessageType)message_type content:(NSString*)message_content {
+    Messages* tmp = [NSEntityDescription insertNewObjectForEntityForName:@"Messages" inManagedObjectContext:context];
+    tmp.type = [NSNumber numberWithInteger:message_type];
+    tmp.content = message_content;
+    tmp.date = [NSDate date];
+    tmp.type = [NSNumber numberWithInt:message_type];
+    tmp.status = [NSNumber numberWithInt:MessagesStatusReaded];
+    tmp.toWho = target;
+    [target addMessagesObject:tmp];
+}
+
 + (void)saveAllHistoricalMessagesInContext:(NSManagedObjectContext*)context {
     [context save:nil];
 }
