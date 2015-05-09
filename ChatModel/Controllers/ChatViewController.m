@@ -15,7 +15,7 @@
 #import "ModelDefines.h"
 #import "Owner.h"
 
-@interface ChatViewController () <UITableViewDataSource, UITableViewDelegate, SRWebSocketDelegate>
+@interface ChatViewController () <UITableViewDataSource, UITableViewDelegate, SRWebSocketDelegate, UITextFieldDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *queryView;
 @property (weak, nonatomic) IBOutlet UITextField *messageTextField;
 @property (strong, nonatomic) Targets* target;
@@ -42,7 +42,10 @@
     _target = [_mm targetWithName:_target_id];
     _chat_list = [_mm loadMessagesWithTargetID:_target_id];
     
-    NSString* user_id = [@"ws://192.168.1.105:9000/registerDevice/" stringByAppendingString: _target.owner.user_id];
+   
+    _messageTextField.delegate = self;
+    
+    NSString* user_id = [@"ws://192.168.1.101:9000/registerDevice/" stringByAppendingString: _target.owner.user_id];
     NSURLRequest* request = [NSURLRequest requestWithURL:[NSURL URLWithString:user_id]];
     _socket = [[SRWebSocket alloc]initWithURLRequest:request];
     _socket.delegate = self;
@@ -232,17 +235,20 @@
 //    NSError * error = nil;
 //    NSData* jsonData =[NSJSONSerialization dataWithJSONObject:[dic copy] options:NSJSONWritingPrettyPrinted error:&error];
     
-    NSString* txt = @"alfred test ...";
-    NSString* jsonData = [NSString stringWithFormat: @"{\"user_id\":\"%@\", \"receiver\":\"%@\", \"message_type\":%d, \"message_content\":\"%@\"}", _target.owner.user_id, _target_id, 0, txt];
+    NSString* txt = _messageTextField.text;
     
-    [_socket send:jsonData];
+    if (txt.length != 0) {
+        NSString* jsonData = [NSString stringWithFormat: @"{\"user_id\":\"%@\", \"receiver\":\"%@\", \"message_type\":%d, \"message_content\":\"%@\"}", _target.owner.user_id, _target_id, 0, txt];
     
-    [_mm addMessageToTarget:_target_id Content:txt];
-    _chat_list = [_mm localMessagesWithTargetID:_target_id];
-    [_queryView reloadData];
+        [_socket send:jsonData];
     
-    // add this to historical chat
-    [_mm addFriendToHistoryChat:_target_id];
+        [_mm addMessageToTarget:_target_id Content:txt];
+        _chat_list = [_mm localMessagesWithTargetID:_target_id];
+        [_queryView reloadData];
+    
+        // add this to historical chat
+        [_mm addFriendToHistoryChat:_target_id];
+    }
 }
 
 #pragma mark -- SRWebSocketDelegate
@@ -278,6 +284,48 @@
 
 - (void)webSocket:(SRWebSocket *)webSocket didCloseWithCode:(NSInteger)code reason:(NSString *)reason wasClean:(BOOL)wasClean {
     NSLog(@"Close web socket");
+}
+
+#pragma mark -- UITextFieldDelegate
+- (void)textFieldDidBeginEditing:(UITextField *) textField
+{
+//    currentTextField = _messageTextField;
+    if (textField.tag==0) {
+        [self moveView:-250];
+    }
+    if (textField.tag==1) {
+        [self moveView:-600];
+    }
+}
+
+- (void)textFieldDidEndEditing:(UITextField *) textField
+{
+//    currentTextField = nil;
+    if (textField.tag==0) {
+        [self moveView:250];
+    }
+    if (textField.tag==1) {
+        [self moveView:600];
+    }
+}
+
+- (BOOL)textFieldShouldReturn:(UITextField *) textFiel
+{
+    [self respondsToSelector:nil];
+    [_messageTextField endEditing:YES];
+    return TRUE;
+}
+
+- (void)moveView:(float)move
+{
+    NSTimeInterval animationDuration = 0.30f;
+    CGRect frame = self.view.frame;
+    frame.origin.y +=move;
+    self.view.frame = frame;
+    [UIView beginAnimations:@"ResizeView" context:nil];
+    [UIView setAnimationDuration:animationDuration];
+    self.view.frame = frame;
+    [UIView commitAnimations];
 }
 
 @end
